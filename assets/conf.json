@@ -1,0 +1,11 @@
+{
+    "cookie.language.name": "homefirstaidkit_chosenapplicationlanguage",
+    "form.register.user.fieldname.username": "username",
+    "form.register.user.fieldname.firstname": "firstname",
+    "form.register.user.fieldname.lastname": "lastname",
+    "form.register.user.fieldname.householdcode": "householdcode",
+    "form.register.user.fieldname.password": "password",
+    "form.register.household.fieldname.name": "household-name",
+    "form.login.user.fieldname.username": "username",
+    "form.login.user.fieldname.password": "password"
+}

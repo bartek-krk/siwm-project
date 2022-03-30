@@ -1,0 +1,122 @@
+{
+    "browser.displayName": {
+        "en": "Home First Aid Kit",
+        "pl": "Domowa apteczka"
+    },
+    "navbar.brand": {
+        "en": "Home First Aid Kit",
+        "pl": "Domowa apteczka"
+    },
+    "homepage.welcome.message": {
+        "en": "Welcome to Home First Aid Kit!",
+        "pl": "Witaj w Domowej Apteczce!"
+    },
+    "page.title.register.user": {
+        "en": "Register user",
+        "pl": "Zarejestruj użytkownika"
+    },
+    "page.title.register.household": {
+        "en": "Registe household",
+        "pl": "Zarejestruj gospodarstwo domowe"
+    },
+    "form.register.user.label.username": {
+        "en": "Username",
+        "pl": "Nazwa użytkownika"
+    },
+    "form.register.user.label.firstname": {
+        "en": "First name",
+        "pl": "Imię"
+    },
+    "form.register.user.label.lastname": {
+        "en": "Last name",
+        "pl": "Nazwisko"
+    },
+    "form.register.user.label.householdcode": {
+        "en": "Household registry code",
+        "pl": "Kod rejestracji gospodarstwa domowego"
+    },
+    "form.register.user.label.password": {
+        "en": "Password",
+        "pl": "Hasło"
+    },
+    "form.register.user.placeholder.username": {
+        "en": "Enter username...",
+        "pl": "Wpisz nazwę użytkownika..."
+    },
+    "form.register.user.placeholder.firstname": {
+        "en": "Enter first name...",
+        "pl": "Wpisz imię..."
+    },
+    "form.register.user.placeholder.lastname": {
+        "en": "Enter last name...",
+        "pl": "Wpisz nazwisko..."
+    },
+    "form.register.user.placeholder.householdcode": {
+        "en": "Enter household registry code...",
+        "pl": "Wpisz kod rejestracji gospodarstwa domowego..."
+    },
+    "form.register.user.placeholder.password": {
+        "en": "Enter password..",
+        "pl": "Wpisz hasło..."
+    },
+    "form.register.user.hint.username": {
+        "en": "A username will be a unique identifier used to login.",
+        "pl": "Unikatowa nazwa użytkownika będzie używana do zalogowania się."
+    },
+    "form.register.user.hint.password": {
+        "en": "Usage of at least one capital letter, digit and special character is recommended.",
+        "pl": "Zalecane jest użycie conajmniej jednej dużej litery, cyfry i znaku specjalnego."
+    },
+    "form.register.household.label.name": {
+        "en": "Household name",
+        "pl": "Nazwa gospodarstwa domowego"
+    },
+    "form.register.household.placeholder.name": {
+        "en": "Enter household name...",
+        "pl": "Wpisz nazwę gospodarstwa domowego..."
+    },
+    "form.login.user.label.username": {
+        "en": "Username",
+        "pl": "Nazwa użytkownika"
+    },
+    "form.login.user.label.password": {
+        "en": "Password",
+        "pl": "Hasło"
+    },
+    "form.login.user.placeholder.username": {
+        "en": "Enter username...",
+        "pl": "Wpisz nazwę użytkownika..."
+    },
+    "form.login.user.placeholder.password": {
+        "en": "Enter password..",
+        "pl": "Wpisz hasło..."
+    },
+    "button.common.submit": {
+        "en": "Submit",
+        "pl": "Zatwierdź"
+    },
+    "page.title.login": {
+        "en": "Login",
+        "pl": "Zaloguj się"
+    },
+    "navbar.label.register.user": {
+        "en": "Register user",
+        "pl": "Zarejestruj się"
+    },
+    "navbar.label.register.household": {
+        "en": "Register household",
+        "pl": "Zarejestruj gospodarstwo domowe"
+    },
+    "navbar.label.login": {
+        "en": "Login",
+        "pl": "Zaloguj"
+    },
+    "navbar.label.logout": {
+        "en": "Logout",
+        "pl": "Wyloguj"
+    },
+    "homepage.description": {
+        "en": "Hi! This page will allow you to organize your drugs and keep track of their expiry date.",
+        "pl": "Witaj! Ta strona pozwoli Ci zorganizować swoje leki i śledzić ich daty ważności."
+    }
+}
