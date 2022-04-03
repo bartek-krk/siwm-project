@@ -64,8 +64,8 @@
         "pl": "Unikatowa nazwa użytkownika będzie używana do zalogowania się."
     },
     "form.register.user.hint.password": {
-        "en": "Usage of at least one capital letter, digit and special character is recommended.",
-        "pl": "Zalecane jest użycie conajmniej jednej dużej litery, cyfry i znaku specjalnego."
+        "en": "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
+        "pl": "Minimum 8 znaków, conajmniej jedna duża litera, jedna mała litera, jedna cyfra i jeden znak specjalny."
     },
     "form.register.household.label.name": {
         "en": "Household name",
@@ -88,8 +88,28 @@
         "pl": "Wpisz nazwę użytkownika..."
     },
     "form.login.user.placeholder.password": {
-        "en": "Enter password..",
+        "en": "Enter password...",
         "pl": "Wpisz hasło..."
+    },
+    "form.login.user.message.success": {
+        "en": "Account created successfully - navigate to login!",
+        "pl": "Konto utworzone pomyślnie - przejdź do zalogowania!"
+    },
+    "form.login.user.message.error.household": {
+        "en": "Account created successfully - household not found!",
+        "pl": "Konto nieutworzone - nie znaleziono gospodarstwa domowego!"
+    },
+    "form.login.user.message.error.password": {
+        "en": "Account not created - given password does not comply with the guidelines!",
+        "pl": "Konto nieutworzone - podane hasło nie spełnia wymagań!"
+    },
+    "form.login.user.message.error.internal": {
+        "en": "Account not created - internal server error!",
+        "pl": "Konto nieutworzone - błąd serwera!"
+    },
+    "form.login.user.message.error.unknown": {
+        "en": "Account created successfully - unknown error!",
+        "pl": "Konto nieutworzone - nieznany błąd!"
     },
     "button.common.submit": {
         "en": "Submit",
