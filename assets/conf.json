@@ -1,4 +1,8 @@
 {
+    "db.host": "mysql.agh.edu.pl",
+    "db.user": "blukasi1",
+    "db.password": "<redacted>",
+    "db.schema": "blukasi1",
     "cookie.language.name": "homefirstaidkit_chosenapplicationlanguage",
     "form.register.user.fieldname.username": "username",
     "form.register.user.fieldname.firstname": "firstname",
