@@ -1,9 +1,11 @@
 <?php
     require_once("./../assets/config_provider.php");
     require_once("./../utils/server_util.php");
-    require_once("./../service/register_service.php");
+    require_once("./../service/register_user_svc.php");
+    require_once("./../utils/db_util.php");
     $configuration = new ConfigProvider("./../assets/conf.json");    
     $locale = new LocaleProvider($configuration, "./../assets/locale/labels.json");
+    $db = new DbManager($configuration);
 ?>
 
 <!DOCTYPE html>
@@ -20,43 +22,51 @@
 
     <div class="container">
       <h1>
-      <?php echo $locale->getProperty('page.title.register.user', 'Register user'); ?>
+        <?php echo $locale->getProperty('page.title.register.user', 'Register user'); ?>
       </h1>
-        <?php if(isGet()) { ?>
-            <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
-                <div class="form-group">
-                  <label for="username-input"><?php echo $locale->getProperty('form.register.user.label.username', 'Username'); ?></label>
-                  <input type="text" class="form-control" id="username-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.username', 'username'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.username', 'Enter username...'); ?>">
-                  <small id="username-help" class="form-text text-muted"><?php echo $locale->getProperty('form.register.user.hint.username', 'A username will be a unique identifier used to login.'); ?></small>
-                </div>
-                <div class="form-group">
-                  <label for="fname-input"><?php echo $locale->getProperty('form.register.user.label.firstname', 'First name'); ?></label>
-                  <input type="text" class="form-control" id="fname-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.firstname', 'firstname'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.firstname', 'Enter first name...'); ?>">
-                </div>
-                <div class="form-group">
-                  <label for="lname-input"><?php echo $locale->getProperty('form.register.user.label.lastname', 'Last name'); ?></label>
-                  <input type="text" class="form-control" id="lname-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.lastname', 'lastname'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.lastname', 'Enter last name...'); ?>">
-                </div>
-                <div class="form-group">
-                  <label for="householdcode-input"><?php echo $locale->getProperty('form.register.user.label.householdcode', 'Household registry code'); ?></label>
-                  <input type="text" class="form-control" id="householdcode-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.householdcode', 'householdcode'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.householdcode', 'Household registry code...'); ?>">
-                </div>
-                <div class="form-group">
-                  <label for="passwd_input"><?php echo $locale->getProperty('form.register.user.label.password', 'Password'); ?></label>
-                  <input type="password" class="form-control" id="passwd-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.password', 'password'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.password', 'Enter password...'); ?>">
-                  <small id="password-help" class="form-text text-muted"><?php echo $locale->getProperty('form.register.user.hint.password', 'Usage of at least one capital letter, digit and special character is recommended.'); ?></small>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty("button.common.submit", "Submit"); ?></button>
-                </div>
-            </form>
-        <?php } ?>
         <?php if(isPost()) { ?>
             <?php
-                $req = new ReqisterUserRequest($_POST);
-                echo $req->stringify();
+                $request = new RegisterUserService(
+                  $db,
+                  $_POST[$configuration->getProperty('form.register.user.fieldname.username', 'username')],
+                  $_POST[$configuration->getProperty('form.register.user.fieldname.firstname', 'firstname')],
+                  $_POST[$configuration->getProperty('form.register.user.fieldname.lastname', 'lastname')],
+                  $_POST[$configuration->getProperty('form.register.user.fieldname.householdcode', 'householdcode')],
+                  $_POST[$configuration->getProperty('form.register.user.fieldname.password', 'password')]
+                );
+                $response = $request->execute();
             ?>
+            <div class="alert <?php echo $response->isSuccess() ? "alert-success" : "alert-danger" ?>" role="alert">
+                <?php echo UserRegistrationErrorCodeMessageResolver::resolve($locale, $response->getErrorCode()); ?>
+            </div>
         <?php } ?>
+        <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
+            <div class="form-group">
+              <label for="username-input"><?php echo $locale->getProperty('form.register.user.label.username', 'Username'); ?></label>
+              <input type="text" class="form-control" id="username-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.username', 'username'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.username', 'Enter username...'); ?>">
+              <small id="username-help" class="form-text text-muted"><?php echo $locale->getProperty('form.register.user.hint.username', 'A username will be a unique identifier used to login.'); ?></small>
+            </div>
+            <div class="form-group">
+              <label for="fname-input"><?php echo $locale->getProperty('form.register.user.label.firstname', 'First name'); ?></label>
+              <input type="text" class="form-control" id="fname-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.firstname', 'firstname'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.firstname', 'Enter first name...'); ?>">
+            </div>
+            <div class="form-group">
+              <label for="lname-input"><?php echo $locale->getProperty('form.register.user.label.lastname', 'Last name'); ?></label>
+              <input type="text" class="form-control" id="lname-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.lastname', 'lastname'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.lastname', 'Enter last name...'); ?>">
+            </div>
+            <div class="form-group">
+              <label for="householdcode-input"><?php echo $locale->getProperty('form.register.user.label.householdcode', 'Household registry code'); ?></label>
+              <input type="text" class="form-control" id="householdcode-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.householdcode', 'householdcode'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.householdcode', 'Household registry code...'); ?>">
+            </div>
+            <div class="form-group">
+              <label for="passwd_input"><?php echo $locale->getProperty('form.register.user.label.password', 'Password'); ?></label>
+              <input type="password" class="form-control" id="passwd-input" name="<?php echo $configuration->getProperty('form.register.user.fieldname.password', 'password'); ?>" placeholder="<?php echo $locale->getProperty('form.register.user.placeholder.password', 'Enter password...'); ?>">
+              <small id="password-help" class="form-text text-muted"><?php echo $locale->getProperty('form.register.user.hint.password', 'Usage of at least one capital letter, digit and special character is recommended.'); ?></small>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty("button.common.submit", "Submit"); ?></button>
+            </div>
+        </form>
     </div>
 
     <?php require_once("./../assets/components/footer.php") ?>
