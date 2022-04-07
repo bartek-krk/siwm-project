@@ -109,7 +109,7 @@
             $hhIdSql = sprintf($hhIdTemplate, $this->householdCode);
             $hhResponse = $this->db->executeQuery($hhIdSql);
 
-            $hhId = mysqli_num_rows($hhResponse) == 1 ? mysqli_fetch_row($hhResponse)[0] : -1;         
+            $hhId = mysqli_num_rows($hhResponse) == 1 ? mysqli_fetch_assoc($hhResponse)['household_id'] : -1;
             
             $householdExists = $hhId != -1;
             if (!$householdExists) {
@@ -125,7 +125,7 @@
             $sql = sprintf(
                 $template,
                 $this->username,
-                $this->password,
+                password_hash($this->password, PASSWORD_DEFAULT),
                 $this->firstName,
                 $this->lastName,
                 $hhId
