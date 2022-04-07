@@ -16,7 +16,7 @@
         "pl": "Zarejestruj użytkownika"
     },
     "page.title.register.household": {
-        "en": "Registe household",
+        "en": "Register household",
         "pl": "Zarejestruj gospodarstwo domowe"
     },
     "form.register.user.label.username": {
@@ -91,25 +91,37 @@
         "en": "Enter password...",
         "pl": "Wpisz hasło..."
     },
-    "form.login.user.message.success": {
+    "form.register.user.message.success": {
         "en": "Account created successfully - navigate to login!",
         "pl": "Konto utworzone pomyślnie - przejdź do zalogowania!"
     },
-    "form.login.user.message.error.household": {
+    "form.register.user.message.error.household": {
         "en": "Account not created - household not found!",
         "pl": "Konto nieutworzone - nie znaleziono gospodarstwa domowego!"
     },
-    "form.login.user.message.error.password": {
+    "form.register.user.message.error.password": {
         "en": "Account not created - given password does not comply with the guidelines!",
         "pl": "Konto nieutworzone - podane hasło nie spełnia wymagań!"
     },
-    "form.login.user.message.error.internal": {
+    "form.register.user.message.error.internal": {
         "en": "Account not created - internal server error!",
         "pl": "Konto nieutworzone - błąd serwera!"
     },
-    "form.login.user.message.error.unknown": {
+    "form.register.user.message.error.unknown": {
         "en": "Account not created - unknown error!",
         "pl": "Konto nieutworzone - nieznany błąd!"
+    },
+    "form.register.household.message.success": {
+        "en": "Household created successfully!",
+        "pl": "Gospodarstwo domowe utworzone pomyślnie!"
+    },
+    "form.register.household.message.error.internal": {
+        "en": "Household not created - internal server error!",
+        "pl": "Gospodarstwo domowe nieutworzone - błąd serwera!"
+    },
+    "form.register.household.message.error.unknown": {
+        "en": "Household not created - unknown error!",
+        "pl": "Gospodarstwo domowe nieutworzone - nieznany błąd!"
     },
     "button.common.submit": {
         "en": "Submit",

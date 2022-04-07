@@ -1,9 +1,11 @@
 <?php
     require_once("./../assets/config_provider.php");
     require_once("./../utils/server_util.php");
-    require_once("./../service/register_service.php");
+    require_once("./../service/register_household_svc.php");
+    require_once("./../utils/db_util.php");
     $configuration = new ConfigProvider("./../assets/conf.json");    
     $locale = new LocaleProvider($configuration, "./../assets/locale/labels.json");
+    $db = new DbManager($configuration);
 ?>
 
 <!DOCTYPE html>
@@ -22,23 +24,27 @@
         <h1>
             <?php echo $locale->getProperty('page.title.register.household', 'Register household'); ?>
         </h1>
-        <?php if(isGet()) { ?>
-            <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
-                <div class="form-group">
-                  <label for="hh-name-input"><?php echo $locale->getProperty('form.register.household.label.name', 'Household name'); ?></label>
-                  <input type="text" class="form-control" id="hh-name-input" name="<?php echo $configuration->getProperty('form.register.household.fieldname.name', 'household-name'); ?>" placeholder="<?php echo $locale->getProperty('form.register.household.placeholder.name', 'Enter household name...'); ?>">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty("button.common.submit", "Submit"); ?></button>
-                </div>
-            </form>
-        <?php } ?>
         <?php if(isPost()) { ?>
             <?php
-                $req = new ReqisterHouseholdRequest($_POST);
-                echo $req->stringify();
+                $request = new RegisterHouseholdService(
+                    $db,
+                    $_POST[$configuration->getProperty('form.register.household.fieldname.name', 'household-name')]
+                );
+                $response = $request->execute();
             ?>
+            <div class="alert <?php echo $response->isSuccess() ? "alert-success" : "alert-danger" ?>" role="alert">
+                <?php echo HouseholdRegistrationErrorCodeMessageResolver::resolve($locale, $response->getErrorCode()); ?>
+            </div>
         <?php } ?>
+        <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
+            <div class="form-group">
+              <label for="hh-name-input"><?php echo $locale->getProperty('form.register.household.label.name', 'Household name'); ?></label>
+              <input type="text" class="form-control" id="hh-name-input" name="<?php echo $configuration->getProperty('form.register.household.fieldname.name', 'household-name'); ?>" placeholder="<?php echo $locale->getProperty('form.register.household.placeholder.name', 'Enter household name...'); ?>">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty("button.common.submit", "Submit"); ?></button>
+            </div>
+        </form>
     </div>
 
     <?php require_once("./../assets/components/footer.php") ?>
