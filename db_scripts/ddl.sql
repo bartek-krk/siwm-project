@@ -9,10 +9,10 @@ CREATE TABLE HOUSEHOLD (
 
 CREATE TABLE D_USER (
   user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(30) NOT NULL,
-  password VARCHAR(30) NOT NULL,
-  first_name VARCHAR(30) NOT NULL,
-  last_name VARCHAR(30) NOT NULL,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
   household_id INT NOT NULL,
   FOREIGN KEY (household_id) REFERENCES HOUSEHOLD(household_id)
 );

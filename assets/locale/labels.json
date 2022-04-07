@@ -96,7 +96,7 @@
         "pl": "Konto utworzone pomyślnie - przejdź do zalogowania!"
     },
     "form.login.user.message.error.household": {
-        "en": "Account created successfully - household not found!",
+        "en": "Account not created - household not found!",
         "pl": "Konto nieutworzone - nie znaleziono gospodarstwa domowego!"
     },
     "form.login.user.message.error.password": {
@@ -108,7 +108,7 @@
         "pl": "Konto nieutworzone - błąd serwera!"
     },
     "form.login.user.message.error.unknown": {
-        "en": "Account created successfully - unknown error!",
+        "en": "Account not created - unknown error!",
         "pl": "Konto nieutworzone - nieznany błąd!"
     },
     "button.common.submit": {

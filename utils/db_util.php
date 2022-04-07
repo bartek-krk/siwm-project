@@ -18,6 +18,8 @@
             $password = $configuration->getProperty('db.password', '');
             $schema = $configuration->getProperty('db.schema', '');
             $this->conn = mysqli_connect($host, $user, $password, $schema);
+
+            if(!$this->conn) die('Database connection failed');
         }
 
         /**
