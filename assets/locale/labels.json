@@ -19,6 +19,10 @@
         "en": "Register household",
         "pl": "Zarejestruj gospodarstwo domowe"
     },
+    "page.title.dashboard": {
+        "en": "Dashboard",
+        "pl": "Panel sterowania"
+    },
     "form.register.user.label.username": {
         "en": "Username",
         "pl": "Nazwa użytkownika"
@@ -91,6 +95,10 @@
         "en": "Enter password...",
         "pl": "Wpisz hasło..."
     },
+    "form.login.user.unauthorized": {
+        "en": "Invalid username or password. Try again.",
+        "pl": "Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie."
+    },
     "form.register.user.message.success": {
         "en": "Account created successfully - navigate to login!",
         "pl": "Konto utworzone pomyślnie - przejdź do zalogowania!"
@@ -150,6 +158,10 @@
     "navbar.label.logout": {
         "en": "Logout",
         "pl": "Wyloguj"
+    },
+    "navbar.greeting.template": {
+        "en": "Hello, %s!",
+        "pl": "Witaj, %s!"
     },
     "homepage.description": {
         "en": "Hi! This page will allow you to organize your drugs and keep track of their expiry date.",

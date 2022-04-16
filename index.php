@@ -1,7 +1,17 @@
 <?php
     require_once("./assets/config_provider.php");
+    require_once("./entity/user.php");
+    require_once("./utils/session_util.php");
+
+    session_start();
+
     $configuration = new ConfigProvider("./assets/conf.json");    
     $locale = new LocaleProvider($configuration, "./assets/locale/labels.json");
+    $session = new SessionManager($configuration);
+
+    if ($session->isUserLoggedIn()) {
+        header('Location: ./pages/dashboard.php');
+    }
 ?>
 
 <!DOCTYPE html>

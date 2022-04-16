@@ -29,7 +29,19 @@
         return $isPagesUri ? $_SERVER['REQUEST_URI'].'/../../pages/login.php' : $_SERVER['REQUEST_URI'].'/../pages/login.php';
     }
 
-    $isLoggedIn = false;
+    function resolveLogoutUri() {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $isPagesUri = strpos($requestUri, 'pages');
+        return $isPagesUri ? $_SERVER['REQUEST_URI'].'/../../pages/logout.php' : $_SERVER['REQUEST_URI'].'/../pages/logout.php';
+    }
+
+    function resolveDashboardUri() {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $isPagesUri = strpos($requestUri, 'pages');
+        return $isPagesUri ? $_SERVER['REQUEST_URI'].'/../../pages/dashboard.php' : $_SERVER['REQUEST_URI'].'/../pages/dashboard.php';
+    }
+
+    $isLoggedIn = $session->isUserLoggedIn();
 ?>
 
 <style>
@@ -46,7 +58,7 @@
     
     <ul class="navbar-nav nav-left">
         <li class="nav-item">
-            <a class="mx-2 navbar-brand pull-left" href="<?php echo resolveIndexUri(); ?>"><?php echo $locale->getProperty("navbar.brand", "Strona"); ?></a>
+            <a class="mx-2 navbar-brand pull-left" href="<?php echo $isLoggedIn ? resolveDashboardUri() : resolveIndexUri(); ?>"><?php echo $locale->getProperty("navbar.brand", "Strona"); ?></a>
         </li>
     </ul>
     
@@ -54,8 +66,13 @@
     <ul class="navbar-nav nav-right align-items-center">
         <?php if($isLoggedIn) { ?>
             <li class="nav-item">
-                <a href="./pages/logout.php" class="btn btn-danger" role="button">
-                    <?php echo $locale->getProperty('navbar.label.register.logout', 'Logout'); ?>
+                <div class="navbar-brand mx-3">
+                    <?php echo sprintf($locale->getProperty('navbar.greeting.template', 'Hello, %s!'), $session->getCurrentUser()->getFormattedName()); ?>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo resolveLogoutUri(); ?>" class="btn btn-danger" role="button">
+                    <?php echo $locale->getProperty('navbar.label.logout', 'Logout'); ?>
                 </a>
             </li>
         <?php } else { ?>

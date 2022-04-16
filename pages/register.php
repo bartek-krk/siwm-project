@@ -3,9 +3,14 @@
     require_once("./../utils/server_util.php");
     require_once("./../service/register_user_svc.php");
     require_once("./../utils/db_util.php");
+    require_once("./../utils/session_util.php");
+
+    session_start();
+
     $configuration = new ConfigProvider("./../assets/conf.json");    
     $locale = new LocaleProvider($configuration, "./../assets/locale/labels.json");
     $db = new DbManager($configuration);
+    $session = new SessionManager($configuration);
 ?>
 
 <!DOCTYPE html>
