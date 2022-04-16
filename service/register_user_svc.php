@@ -27,31 +27,31 @@
             switch ($errorCode) {
                 case UserRegistrationErrorCode::SUCCESS:
                     return $locale->getProperty(
-                        'form.login.user.message.success', 
+                        'form.register.user.message.success', 
                         'Account created successfully - navigate to login!'
                     );
 
                 case UserRegistrationErrorCode::NONEXISTENT_HOUSEHOLD:
                     return $locale->getProperty(
-                        'form.login.user.message.error.household', 
+                        'form.register.user.message.error.household', 
                         'Account created successfully - household not found!'
                     );
 
                 case UserRegistrationErrorCode::INVALID_PASSWORD:
                     return $locale->getProperty(
-                        'form.login.user.message.error.password', 
+                        'form.register.user.message.error.password', 
                         'Account not created - given password does not comply with the guidelines!'
                     );
 
                 case UserRegistrationErrorCode::INTERNAL_SERVER_ERROR:
                     return $locale->getProperty(
-                        'form.login.user.message.error.internal', 
+                        'form.register.user.message.error.internal', 
                         'Account not created - internal server error!'
                     );
 
                 default:
                     return $locale->getProperty(
-                        'form.login.user.message.error.unknown', 
+                        'form.register.user.message.error.unknown', 
                         'Account created successfully - unknown error!'
                     );
             }
