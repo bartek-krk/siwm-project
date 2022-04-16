@@ -123,6 +123,10 @@
         "en": "Household not created - unknown error!",
         "pl": "Gospodarstwo domowe nieutworzone - nieznany błąd!"
     },
+    "form.register.household.joincode.message.pattern": {
+        "en": "Your join code is: <b>%s</b>. IMPORTANT: Please, retain it for further registrations!",
+        "pl": "Twój kod dołączenia to: <b>%s</b>. WAŻNE: Proszę zachować go do przyszłych rejestracji!"
+    },
     "button.common.submit": {
         "en": "Submit",
         "pl": "Zatwierdź"

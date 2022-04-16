@@ -35,6 +35,11 @@
             <div class="alert <?php echo $response->isSuccess() ? "alert-success" : "alert-danger" ?>" role="alert">
                 <?php echo HouseholdRegistrationErrorCodeMessageResolver::resolve($locale, $response->getErrorCode()); ?>
             </div>
+            <?php if ($response->isSuccess()) { ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo JoinCodeResolver::resolve($locale, $response->getJoinCode()); ?>
+                </div>
+            <?php } ?>
         <?php } ?>
         <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
             <div class="form-group">
