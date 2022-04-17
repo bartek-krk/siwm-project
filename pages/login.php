@@ -1,8 +1,16 @@
 <?php
     require_once("./../assets/config_provider.php");
     require_once("./../utils/server_util.php");
+    require_once("./../service/authentication_svc.php");
+    require_once("./../utils/db_util.php");
+    require_once("./../utils/session_util.php");
+
+    session_start();
+
     $configuration = new ConfigProvider("./../assets/conf.json");    
     $locale = new LocaleProvider($configuration, "./../assets/locale/labels.json");
+    $db = new DbManager($configuration);
+    $session = new SessionManager($configuration);
 ?>
 
 <!DOCTYPE html>
@@ -22,28 +30,42 @@
             <h1><?php echo $locale->getProperty("page.title.login", "Login"); ?></h1>
         </div>
 
-        <?php if(isGet()) { ?>
-            <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
-                <div class="form-group">
-                  <label for="username-input"><?php echo $locale->getProperty('form.login.user.label.username', 'Username'); ?></label>
-                  <input type="text" class="form-control" id="username-input" name="<?php echo $configuration->getProperty('form.login.user.fieldname.username', 'username'); ?>" placeholder="<?php echo $locale->getProperty('form.login.user.placeholder.username', 'Enter username...'); ?>">
-                </div>
-                <div class="form-group">
-                  <label for="passwd_input"><?php echo $locale->getProperty('form.login.user.label.password', 'Password'); ?></label>
-                  <input type="password" class="form-control" id="passwd-input" name="<?php echo $configuration->getProperty('form.login.user.fieldname.password', 'password'); ?>" placeholder="<?php echo $locale->getProperty('form.login.user.placeholder.password', 'Enter password...'); ?>">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty("button.common.submit", "Submit"); ?></button>
-                </div>
-            </form>
+        <?php
+            if (isPost()) {
+                $auth_svc = new AuthenticationService($db);
+
+                $username = $_POST[$configuration->getProperty('form.login.user.fieldname.username', 'username')];
+                $password = $_POST[$configuration->getProperty('form.login.user.fieldname.password', 'password')];
+                
+                $user = $auth_svc->isAuthenticated($username, $password);
+
+                if ($user != NULL) {
+                    $_SESSION[$configuration->getProperty('session.assoc.loggedin', 'is_logged_in')] = true;
+                    $_SESSION[$configuration->getProperty('session.assoc.user', 'user_details')] = $user;
+                    header('Location: ./dashboard.php');
+                }
+            }
+        ?>
+
+        <?php if ($user == NULL && isPost()) { ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $locale->getProperty('form.login.user.unauthorized', 'Invalid username or password. Try again.'); ?>
+            </div>
         <?php } ?>
-        <?php if(isPost()) { ?>
-            <?php
-                echo(
-                    sprintf('Logging in with username -> %s and password -> %s', $_POST['username'], $_POST['password'])
-                );
-            ?>
-        <?php } ?>
+
+        <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
+            <div class="form-group">
+              <label for="username-input"><?php echo $locale->getProperty('form.login.user.label.username', 'Username'); ?></label>
+              <input type="text" class="form-control" id="username-input" name="<?php echo $configuration->getProperty('form.login.user.fieldname.username', 'username'); ?>" placeholder="<?php echo $locale->getProperty('form.login.user.placeholder.username', 'Enter username...'); ?>">
+            </div>
+            <div class="form-group">
+              <label for="passwd_input"><?php echo $locale->getProperty('form.login.user.label.password', 'Password'); ?></label>
+              <input type="password" class="form-control" id="passwd-input" name="<?php echo $configuration->getProperty('form.login.user.fieldname.password', 'password'); ?>" placeholder="<?php echo $locale->getProperty('form.login.user.placeholder.password', 'Enter password...'); ?>">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty("button.common.submit", "Submit"); ?></button>
+            </div>
+        </form>
     </div>
 
     <?php require_once("./../assets/components/footer.php") ?>
