@@ -16,7 +16,7 @@
          * otherwise returns NULL.
          */
         public function isAuthenticated($username, $password) {
-            $template = 'SELECT u.user_id, u.username, u.first_name, u.last_name, u.household_id from D_USER u WHERE u.username="%s" AND u.password="%s"';
+            $template = 'SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.household_id from D_USER u WHERE u.username="%s"';
             $sql = sprintf($template, $username, $password);
             
             try {
@@ -31,7 +31,8 @@
                             $row['last_name'],
                             $row['household_id']
                         );
-                        return $user;
+                        $db_password_hash = $row['password'];
+                        return password_verify($password, $db_password_hash) ? $user : NULL;
                     } else {
                         return NULL;
                     }
