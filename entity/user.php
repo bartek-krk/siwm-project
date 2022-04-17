@@ -25,6 +25,10 @@
         public function getFormattedName() {
             return sprintf('%s %s', $this->firstName, $this->lastName);
         }
+
+        public function getHouseholdId() {
+            return $this->householdId;
+        }
     }
 
 ?>

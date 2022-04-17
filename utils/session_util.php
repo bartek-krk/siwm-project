@@ -19,7 +19,7 @@
 
         public function getCurrentUser() {
             if ($_SESSION != NULL) {
-                $_boolean = $_SESSION[$this->config->getProperty('ssession.assoc.user', 'user_details')];
+                $_boolean = $_SESSION[$this->config->getProperty('session.assoc.user', 'user_details')];
                 return $_boolean != NULL ? $_boolean : NULL;
             } else {
                 return NULL;

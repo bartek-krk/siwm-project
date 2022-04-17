@@ -121,7 +121,7 @@
                 return new RegisterUserResponse(false, UserRegistrationErrorCode::INVALID_PASSWORD);
             }
 
-            $template = 'INSERT INTO D_USER(username, password, first_name, last_name, household_id) VALUES ("%s", "%s", "%s", "%s", %d)';
+            $template = 'INSERT INTO D_USER(username, password_hash, first_name, last_name, household_id) VALUES ("%s", "%s", "%s", "%s", %d)';
             $sql = sprintf(
                 $template,
                 $this->username,

@@ -23,6 +23,10 @@
         "en": "Dashboard",
         "pl": "Panel sterowania"
     },
+    "page.title.add.drug": {
+        "en": "Add Drug",
+        "pl": "Dodaj lek"
+    },
     "form.register.user.label.username": {
         "en": "Username",
         "pl": "Nazwa użytkownika"
@@ -135,6 +139,54 @@
         "en": "Your join code is: <b>%s</b>. IMPORTANT: Please, retain it for further registrations!",
         "pl": "Twój kod dołączenia to: <b>%s</b>. WAŻNE: Proszę zachować go do przyszłych rejestracji!"
     },
+    "form.register.drug.label.name": {
+        "en": "Drug's name",
+        "pl": "Nazwa leku"
+    },
+    "form.register.drug.placeholder.name": {
+        "en": "Enter drug's name...",
+        "pl": "Wpisz nazwę leku..."
+    },
+    "form.register.drug.hint.name": {
+        "en": "Drug's name contains its characteristic features.",
+        "pl": "Nazwa leku zawiera jego cechy szczególne."
+    },
+    "form.register.drug.label.price": {
+        "en": "Drug's price",
+        "pl": "Cena leku"
+    },
+    "form.register.drug.placeholder.price": {
+        "en": "Enter drug's price...",
+        "pl": "Wpisz cenę leku..."
+    },
+    "form.register.drug.label.expiry.date": {
+        "en": "Drug's expiry date",
+        "pl": "Data ważności leku"
+    },
+    "form.register.drug.label.quantity.type": {
+        "en": "Drug's measurement unit",
+        "pl": "Jednostka ilości leku"
+    },
+    "form.register.drug.placeholder.quantity.type": {
+        "en": "Enter drug's measurement unit...",
+        "pl": "Wpisz jednostkę ilości leku..."
+    },
+    "form.register.drug.hint.quantity.type": {
+        "en": "Drug's measurement unit e.g. tablets, milliliters etc.",
+        "pl": "Jednostka miary leku np. tabletki, mililitry itd."
+    },
+    "form.register.drug.label.quantity.initial": {
+        "en": "Initial drug's quantity",
+        "pl": "Początkowa ilośc leku"
+    },
+    "form.register.drug.placeholder.quantity.initial": {
+        "en": "Enter drug's initial quantity...",
+        "pl": "Wpisz początkową ilość leku..."
+    },
+    "form.register.drug.hint.quantity.initial": {
+        "en": "Initial quantity that package/bottle holds.",
+        "pl": "Początkowa ilość zawarta w opakowaniu/butelce."
+    },
     "button.common.submit": {
         "en": "Submit",
         "pl": "Zatwierdź"
@@ -166,5 +218,30 @@
     "homepage.description": {
         "en": "Hi! This page will allow you to organize your drugs and keep track of their expiry date.",
         "pl": "Witaj! Ta strona pozwoli Ci zorganizować swoje leki i śledzić ich daty ważności."
+    },
+
+    "dashboard.drugs.table.header.name": {
+        "en": "Name",
+        "pl": "Nazwa"
+    },
+    "dashboard.drugs.table.header.price": {
+        "en": "Price",
+        "pl": "Cena"
+    },
+    "dashboard.drugs.table.header.expiry.date": {
+        "en": "Expiry date",
+        "pl": "Data ważności"
+    },
+    "dashboard.drugs.table.header.measurement.unit": {
+        "en": "Measurement unit",
+        "pl": "Jednostka miary"
+    },
+    "dashboard.drugs.table.header.initial.quantity": {
+        "en": "Initial quantity",
+        "pl": "Początkowa ilość"
+    },
+    "dashboard.drugs.table.header.taking.that": {
+        "en": "I'm taking that drug",
+        "pl": "Biorę ten lek"
     }
 }

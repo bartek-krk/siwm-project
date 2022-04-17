@@ -12,6 +12,11 @@
     "form.register.household.fieldname.name": "household-name",
     "form.login.user.fieldname.username": "username",
     "form.login.user.fieldname.password": "password",
+    "form.register.drug.fieldname.name": "drug-name",
+    "form.register.drug.fieldname.price": "drug-price",
+    "form.register.drug.fieldname.expiry.date": "drug-expiry-date",
+    "form.register.drug.fieldname.quantity.type": "drug-quantity-type",
+    "form.register.drug.fieldname.quantity.initial": "drug-initial-quantity",
     "session.assoc.loggedin": "is_logged_in",
     "session.assoc.user": "user_details"
 }
