@@ -5,7 +5,7 @@
     require_once("./../entity/history_log.php");
     require_once("./../utils/session_util.php");
     require_once("./../service/drug_svc.php");
-    require_once("./../service/history_svc.php")
+    require_once("./../service/history_svc.php");
     require_once("./../utils/db_util.php");    
 
     session_start();
@@ -33,11 +33,10 @@
 <body>
     <?php require_once("./../assets/components/navbar.php") ?>
 
-    <div class="container">
+    <div class="container mb-5">
         <div id="title-holder">
             <h1><?php echo $locale->getProperty("page.title.dashboard", "Dashboard"); ?></h1>
         </div>
-        
         <div class="overflow-auto">
             <h2>Drugs</h2>
             <a href="./add_drug.php" class="btn btn-success" role="button">
@@ -68,9 +67,10 @@
                 <?php } ?>
             </table>
         </div>
+        <?php echo var_dump($historyObjects); ?>
     </div>
 
-    <?php echo vardump($historyObjects); ?>
+    
 
     <?php require_once("./../assets/components/footer.php") ?>
 
