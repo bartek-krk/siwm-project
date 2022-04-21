@@ -2,9 +2,11 @@
     require_once("./../assets/config_provider.php");
     require_once("./../entity/user.php");
     require_once("./../entity/drug.php");
+    require_once("./../entity/history_log.php");
     require_once("./../utils/session_util.php");
     require_once("./../service/drug_svc.php");
-    require_once("./../utils/db_util.php");
+    require_once("./../service/history_svc.php");
+    require_once("./../utils/db_util.php");    
 
     session_start();
 
@@ -13,7 +15,9 @@
     $db = new DbManager($configuration);
     $session = new SessionManager($configuration);
     $drugSvc = new DrugService($db);
+    $historySvc = new HistoryService($db);
     $drugs = $drugSvc->getByHouseholdId($session->getCurrentUser()->getHouseholdId());
+    $historyObjects = $historySvc->getDrugHistory($session->getCurrentUser()->getHouseholdId());
 ?>
 
 
@@ -29,11 +33,10 @@
 <body>
     <?php require_once("./../assets/components/navbar.php") ?>
 
-    <div class="container">
+    <div class="container mb-5">
         <div id="title-holder">
             <h1><?php echo $locale->getProperty("page.title.dashboard", "Dashboard"); ?></h1>
         </div>
-        
         <div class="overflow-auto">
             <h2>Drugs</h2>
             <a href="./add_drug.php" class="btn btn-success" role="button">
@@ -81,7 +84,10 @@
                 <?php } ?>
             </table>
         </div>
+        <?php echo var_dump($historyObjects); ?>
     </div>
+
+    
 
     <?php require_once("./../assets/components/footer.php") ?>
 
