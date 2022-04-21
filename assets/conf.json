@@ -18,5 +18,7 @@
     "form.register.drug.fieldname.quantity.type": "drug-quantity-type",
     "form.register.drug.fieldname.quantity.initial": "drug-initial-quantity",
     "session.assoc.loggedin": "is_logged_in",
-    "session.assoc.user": "user_details"
+    "session.assoc.user": "user_details",
+    "dashboard.takingthatdrug.drug.id": "drug-id",
+    "dashboard.takingthatdrug.drug.quantity": "drug-quantity"
 }
