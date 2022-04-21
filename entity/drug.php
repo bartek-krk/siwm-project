@@ -41,5 +41,9 @@
         public function getInitialQuantity() {
             return $this->drugInitialQuantity;
         }
+
+        public function getHouseholdId() {
+            return $this->householdId;
+        }
     }
 ?>

@@ -55,6 +55,30 @@
 
             return $drugs;
         }
+
+        public function getById($id) {
+            $template = 'SELECT * FROM DRUG d WHERE d.drug_id=%d';
+            $sql = sprintf($template, $id);
+            
+            $res = $this->db->executeQuery($sql);
+            
+            if ($res) {
+                $row = mysqli_fetch_assoc($res);
+                if ($row) {
+                    return new Drug(
+                        $row['drug_id'],
+                        $row['name'],
+                        $row['price'],
+                        $row['expiry_dt'],
+                        $row['quantity_type'],
+                        $row['initial_quantity'],
+                        $row['household_id']
+                    );
+                }
+            }
+
+            return NULL;
+        }
     }
 
 ?>

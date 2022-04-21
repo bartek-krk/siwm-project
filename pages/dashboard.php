@@ -56,9 +56,26 @@
                         <td><?php echo $d->getQuantityType() ?></td>
                         <td><?php echo $d->getInitialQuantity() ?></td>
                         <td>
-                            <form action="" method="get">
-                                <input type="hidden" name="id" value="<?php echo $d->getId(); ?>">
-                                <button type="submit" class="btn btn-primary"><?php echo $locale->getProperty('dashboard.drugs.table.header.taking.that', 'I\'m taking that drug'); ?></button>
+                            <form action="./add_dosage.php" method="post">
+                                <input 
+                                    id="<?php echo printf('id-input-%d', $d->getId()); ?>" 
+                                    type="hidden" 
+                                    name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.id', 'drug-id'); ?>" 
+                                    value="<?php echo $d->getId(); ?>"
+                                >
+                                <input 
+                                    id="<?php echo printf('quantity-input-%d', $d->getId()); ?>" 
+                                    name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.quantity', 'drug-quantity'); ?>"
+                                    type="number" 
+                                    step="0.01" 
+                                    placeholder="<?php echo $d->getQuantityType() ?>"
+                                >
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-primary"
+                                >
+                                    <?php echo $locale->getProperty('dashboard.drugs.table.header.taking.that', 'I\'m taking that drug'); ?>
+                                </button>
                             </form>
                         </td>
                 <?php } ?>
