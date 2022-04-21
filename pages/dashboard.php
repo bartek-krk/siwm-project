@@ -2,9 +2,11 @@
     require_once("./../assets/config_provider.php");
     require_once("./../entity/user.php");
     require_once("./../entity/drug.php");
+    require_once("./../entity/history_log.php");
     require_once("./../utils/session_util.php");
     require_once("./../service/drug_svc.php");
-    require_once("./../utils/db_util.php");
+    require_once("./../service/history_svc.php")
+    require_once("./../utils/db_util.php");    
 
     session_start();
 
@@ -13,7 +15,9 @@
     $db = new DbManager($configuration);
     $session = new SessionManager($configuration);
     $drugSvc = new DrugService($db);
+    $historySvc = new HistoryService($db);
     $drugs = $drugSvc->getByHouseholdId($session->getCurrentUser()->getHouseholdId());
+    $historyObjects = $historySvc->getDrugHistory($session->getCurrentUser()->getHouseholdId());
 ?>
 
 
@@ -65,6 +69,8 @@
             </table>
         </div>
     </div>
+
+    <?php echo vardump($historyObjects); ?>
 
     <?php require_once("./../assets/components/footer.php") ?>
 
