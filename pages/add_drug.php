@@ -47,7 +47,13 @@
 
                 $drugSvc = new DrugService($db);
 
-                echo $drugSvc->add($drugName, $drugPrice, $drugExpiryDt, $drugQuantityType, $drugInitialQuantity, $householdId);
+                $isAddSuccess = $drugSvc->add($drugName, $drugPrice, $drugExpiryDt, $drugQuantityType, $drugInitialQuantity, $householdId);
+
+                if ($isAddSuccess) {
+                  header('Location: ./dashboard.php');
+                } else {
+                  echo 'Server error';
+                }
             }
         ?>
 
