@@ -139,18 +139,44 @@
         "en": "Your join code is: <b>%s</b>. IMPORTANT: Please, retain it for further registrations!",
         "pl": "Twój kod dołączenia to: <b>%s</b>. WAŻNE: Proszę zachować go do przyszłych rejestracji!"
     },
-    "form.register.drug.label.name": {
-        "en": "Drug's name",
-        "pl": "Nazwa leku"
+
+
+    "table.register.drug.search": {
+        "en": "Find a drug...",
+        "pl": "Znajdź lek..."
     },
-    "form.register.drug.placeholder.name": {
-        "en": "Enter drug's name...",
-        "pl": "Wpisz nazwę leku..."
+    "table.register.drug.name": {
+        "en": "Name",
+        "pl": "Nazwa"
     },
-    "form.register.drug.hint.name": {
-        "en": "Drug's name contains its characteristic features.",
-        "pl": "Nazwa leku zawiera jego cechy szczególne."
+    "table.register.drug.manufacturer": {
+        "en": "Manufacturer",
+        "pl": "Producent"
     },
+    "table.register.drug.activeingredient": {
+        "en": "Active ingredient",
+        "pl": "Składnik aktywny"
+    },
+    "table.register.drug.package": {
+        "en": "Package",
+        "pl": "Opakowanie"
+    },
+    "table.register.drug.leaflet": {
+        "en": "Leaflet",
+        "pl": "Ulotka"
+    },
+    "table.register.drug.select": {
+        "en": "Select",
+        "pl": "Wybierz"
+    },
+    "table.register.drug.nodrugs": {
+        "en": "No drugs, type something to search...",
+        "pl": "Brak leków, wpisz coś by wyszukać..."
+    },
+
+
+
+
     "form.register.drug.label.price": {
         "en": "Drug's price",
         "pl": "Cena leku"
@@ -162,18 +188,6 @@
     "form.register.drug.label.expiry.date": {
         "en": "Drug's expiry date",
         "pl": "Data ważności leku"
-    },
-    "form.register.drug.label.quantity.type": {
-        "en": "Drug's measurement unit",
-        "pl": "Jednostka ilości leku"
-    },
-    "form.register.drug.placeholder.quantity.type": {
-        "en": "Enter drug's measurement unit...",
-        "pl": "Wpisz jednostkę ilości leku..."
-    },
-    "form.register.drug.hint.quantity.type": {
-        "en": "Drug's measurement unit e.g. tablets, milliliters etc.",
-        "pl": "Jednostka miary leku np. tabletki, mililitry itd."
     },
     "form.register.drug.label.quantity.initial": {
         "en": "Initial drug's quantity",
@@ -231,10 +245,6 @@
     "dashboard.drugs.table.header.expiry.date": {
         "en": "Expiry date",
         "pl": "Data ważności"
-    },
-    "dashboard.drugs.table.header.measurement.unit": {
-        "en": "Measurement unit",
-        "pl": "Jednostka miary"
     },
     "dashboard.drugs.table.header.initial.quantity": {
         "en": "Initial quantity",
