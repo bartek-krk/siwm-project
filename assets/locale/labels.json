@@ -139,8 +139,6 @@
         "en": "Your join code is: <b>%s</b>. IMPORTANT: Please, retain it for further registrations!",
         "pl": "Twój kod dołączenia to: <b>%s</b>. WAŻNE: Proszę zachować go do przyszłych rejestracji!"
     },
-
-
     "table.register.drug.search": {
         "en": "Find a drug...",
         "pl": "Znajdź lek..."
@@ -173,10 +171,14 @@
         "en": "No drugs, type something to search...",
         "pl": "Brak leków, wpisz coś by wyszukać..."
     },
-
-
-
-
+    "indicator.selected.drug.template": {
+        "en": "Selected drug: ",
+        "pl": "Wybrany lek: "
+    },
+    "indicator.missing.drug.template": {
+        "en": "No drug selected",
+        "pl": "Nie wybrano leku"
+    },
     "form.register.drug.label.price": {
         "en": "Drug's price",
         "pl": "Cena leku"
@@ -233,7 +235,14 @@
         "en": "Hi! This page will allow you to organize your drugs and keep track of their expiry date.",
         "pl": "Witaj! Ta strona pozwoli Ci zorganizować swoje leki i śledzić ich daty ważności."
     },
-
+    "dashboard.drugs": {
+        "en": "Drugs",
+        "pl": "Leki"
+    },
+    "dashboard.drugs.add": {
+        "en": "Add new",
+        "pl": "Dodaj nowy"
+    },
     "dashboard.drugs.table.header.name": {
         "en": "Name",
         "pl": "Nazwa"

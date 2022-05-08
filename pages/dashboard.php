@@ -38,9 +38,9 @@
             <h1><?php echo $locale->getProperty("page.title.dashboard", "Dashboard"); ?></h1>
         </div>
         <div class="overflow-auto">
-            <h2>Drugs</h2>
+            <h2><?php echo $locale->getProperty('dashboard.drugs', 'Drugs'); ?></h2>
             <a href="./add_drug.php" class="btn btn-success" role="button">
-                <?php echo 'Add new'; ?>
+                <?php echo $locale->getProperty("dashboard.drugs.add", "Add new"); ?>
             </a>
             <table class="table table-hover">
                 <tr>

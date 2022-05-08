@@ -80,6 +80,12 @@
             }
         ?>
 
+        
+        <span style="font-size: 1.5em;">
+          <b><?php echo $locale->getProperty('indicator.selected.drug.template', 'Selected drug: '); ?></b>
+          <span id="selected-drug-indicator"><?php echo $locale->getProperty('indicator.missing.drug.template', 'No drug selected'); ?></span>
+        </span>
+
         <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
             <input 
               id="drug-template-id-input"
@@ -156,9 +162,13 @@
         document.getElementById('selected-product-rows-outlet').innerHTML = searchString === '' ? '<tr><td>Type something...</td></tr>' : matchedDrugRowsHtmls.join('');
       }
 
+      const drugIdDescription = {};
+      drugTemplates.forEach(d => {
+        drugIdDescription[d.drug_template_id] = `${d.name} (${d.manufacturer})`;
+      });
       function onSelectClick(drugTemplateId) {
         document.getElementById('drug-template-id-input').value = drugTemplateId;
-        console.log(document.getElementById('drug-template-id-input').value);
+        document.getElementById('selected-drug-indicator').innerHTML = drugIdDescription[drugTemplateId];
       }
     </script>
 
