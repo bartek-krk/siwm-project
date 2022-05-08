@@ -19,9 +19,9 @@
             $this->db = $db;
         }
 
-        public function add($drugName, $drugPrice, $drugExpiryDt, $drugQuantityType, $drugInitialQuantity, $householdId) {
-            $template = 'INSERT INTO DRUG(name, price, expiry_dt, quantity_type, initial_quantity, household_id) VALUES ("%s", %f, "%s", "%s", %f, %d)';
-            $sql = sprintf($template, $drugName, $drugPrice, $drugExpiryDt, $drugQuantityType, $drugInitialQuantity, $householdId);
+        public function add($drugTemplateId, $drugPrice, $drugExpiryDt, $drugInitialQuantity, $householdId) {
+            $template = 'INSERT INTO DRUG(drug_template_id, price, expiry_dt, initial_quantity, household_id) VALUES (%d, %f, "%s", %f, %d)';
+            $sql = sprintf($template, $drugTemplateId, $drugPrice, $drugExpiryDt, $drugInitialQuantity, $householdId);
             
             try {
                 $res = $this->db->executeQuery($sql);
@@ -32,7 +32,7 @@
         }
 
         public function getByHouseholdId($householdId) {
-            $template = 'SELECT * FROM DRUG d WHERE d.household_id=%d';
+            $template = 'SELECT * FROM DRUG d JOIN DRUG_TEMPLATE dt ON d.drug_template_id=dt.drug_template_id WHERE d.household_id=%d';
             $sql = sprintf($template, $householdId);
             
             $res = $this->db->executeQuery($sql);
@@ -45,7 +45,6 @@
                         $row['name'],
                         $row['price'],
                         $row['expiry_dt'],
-                        $row['quantity_type'],
                         $row['initial_quantity'],
                         $row['household_id']
                     );
@@ -57,7 +56,7 @@
         }
 
         public function getById($id) {
-            $template = 'SELECT * FROM DRUG d WHERE d.drug_id=%d';
+            $template = 'SELECT * FROM DRUG d JOIN DRUG_TEMPLATE dt ON d.drug_template_id=dt.drug_template_id WHERE d.drug_id=%d';
             $sql = sprintf($template, $id);
             
             $res = $this->db->executeQuery($sql);
@@ -70,7 +69,6 @@
                         $row['name'],
                         $row['price'],
                         $row['expiry_dt'],
-                        $row['quantity_type'],
                         $row['initial_quantity'],
                         $row['household_id']
                     );

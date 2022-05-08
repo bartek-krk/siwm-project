@@ -1,9 +1,11 @@
 <?php
     require_once("./../assets/config_provider.php");
     require_once("./../entity/user.php");
+    require_once("./../entity/drug_template.php");
     require_once("./../utils/session_util.php");
     require_once("./../utils/server_util.php");
     require_once("./../service/drug_svc.php");
+    require_once("./../service/drug_template_svc.php");
     require_once("./../utils/db_util.php");
 
     session_start();
@@ -12,6 +14,7 @@
     $locale = new LocaleProvider($configuration, "./../assets/locale/labels.json");
     $db = new DbManager($configuration);
     $session = new SessionManager($configuration);
+    $drug_template_svc = new DrugTemplateService($db);
 
     if (!$session->isUserLoggedIn()) {
         header('Location: ./../index.php');
@@ -31,23 +34,43 @@
 
     <?php require_once("./../assets/components/navbar.php") ?>
 
-    <div class="container">
+    <div class="container mb-5">
         <div id="title-holder">
             <h1><?php echo $locale->getProperty("page.title.add.drug", "Add Drug"); ?></h1>
         </div>
 
+        <div id="drug-selection-component">
+          <input id="drug-search-input" class="form-control" type="text" placeholder="<?php echo $locale->getProperty("table.register.drug.search", "Find a drug..."); ?>" onkeyup="onDrugSearchChange()">
+          <table class="table table-hover">
+              <thead>
+              <tr>
+                  <th scope="col"><?php echo $locale->getProperty("table.register.drug.name", "Name"); ?></th>
+                  <th scope="col"><?php echo $locale->getProperty("table.register.drug.manufacturer", "Manufacturer"); ?></th>
+                  <th scope="col"><?php echo $locale->getProperty("table.register.drug.activeingredient", "Active ingredient"); ?></th>
+                  <th scope="col"><?php echo $locale->getProperty("table.register.drug.package", "Package"); ?></th>
+                  <th scope="col"><?php echo $locale->getProperty("table.register.drug.leaflet", "Leaflet"); ?></th>
+                  <th scope="col"><?php echo $locale->getProperty("table.register.drug.select", "Select"); ?></th>
+              </tr>
+              </thead>
+              <tbody id="selected-product-rows-outlet">
+                  <tr>
+                      <td><?php echo $locale->getProperty("table.register.drug.nodrugs", "No drugs, type something..."); ?></td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+
         <?php
             if(isPost()) {
-                $drugName = $_POST[$configuration->getProperty('form.register.drug.fieldname.name', 'drug-name')];
+                $drugTemplateId = $_POST[$configuration->getProperty('form.register.drug.fieldname.template.id', 'drug-template-id')];
                 $drugPrice = $_POST[$configuration->getProperty('form.register.drug.fieldname.price', 'drug-price')];
                 $drugExpiryDt = $_POST[$configuration->getProperty('form.register.drug.fieldname.expiry.date', 'drug-expiry-date')];
-                $drugQuantityType = $_POST[$configuration->getProperty('form.register.drug.fieldname.quantity.type', 'drug-quantity-type')];
                 $drugInitialQuantity = $_POST[$configuration->getProperty('form.register.drug.fieldname.quantity.initial', 'drug-initial-quantity')];
                 $householdId = $session->getCurrentUser()->getHouseholdId();
 
                 $drugSvc = new DrugService($db);
 
-                $isAddSuccess = $drugSvc->add($drugName, $drugPrice, $drugExpiryDt, $drugQuantityType, $drugInitialQuantity, $householdId);
+                $isAddSuccess = $drugSvc->add($drugTemplateId, $drugPrice, $drugExpiryDt, $drugInitialQuantity, $householdId);
 
                 if ($isAddSuccess) {
                   header('Location: ./dashboard.php');
@@ -58,21 +81,12 @@
         ?>
 
         <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
-            <div class="form-group">
-              <label for="drug-name-input"><?php echo $locale->getProperty('form.register.drug.label.name', 'Drug\'s name'); ?></label>
-              <input 
-                type="text" 
-                class="form-control" 
-                id="drug-name-input" 
-                name="<?php echo $configuration->getProperty('form.register.drug.fieldname.name', 'drug-name'); ?>" 
-                placeholder="<?php echo $locale->getProperty('form.register.drug.placeholder.name', 'Enter drug\'s name...'); ?>"
-              >
-              <small 
-                id="name-help" 
-                class="form-text text-muted">
-                <?php echo $locale->getProperty('form.register.drug.hint.name', 'Drug\'s name contains its characteristic features.'); ?>
-              </small>
-            </div>
+            <input 
+              id="drug-template-id-input"
+              type="hidden" 
+              name="<?php echo $configuration->getProperty('form.register.drug.fieldname.template.id', 'drug-template-id'); ?>"
+              value="-1"
+            >
             <div class="form-group">
               <label for="drug-price-input"><?php echo $locale->getProperty('form.register.drug.label.price', 'Drug\'s price'); ?></label>
               <input 
@@ -93,22 +107,6 @@
                 id="drug-expiry-date-input" 
                 name="<?php echo $configuration->getProperty('form.register.drug.fieldname.expiry.date', 'drug-expiry-date'); ?>" 
               >
-            </div>
-
-            <div class="form-group">
-              <label for="drug-quantity-type-input"><?php echo $locale->getProperty('form.register.drug.label.quantity.type', 'Drug\'s measurement unit'); ?></label>
-              <input 
-                type="text" 
-                class="form-control" 
-                id="drug-quantity-type-input" 
-                name="<?php echo $configuration->getProperty('form.register.drug.fieldname.quantity.type', 'drug-quantity-type'); ?>" 
-                placeholder="<?php echo $locale->getProperty('form.register.drug.placeholder.quantity.type', 'Enter drug\'s measurement unit...'); ?>"
-              >
-              <small 
-                id="quantity-type-help" 
-                class="form-text text-muted">
-                <?php echo $locale->getProperty('form.register.drug.hint.quantity.type', 'Drug\'s measurement unit e.g. tablets, milliliters etc.'); ?>
-              </small>
             </div>
 
             <div class="form-group">
@@ -135,6 +133,34 @@
     </div>
 
     <?php require_once("./../assets/components/footer.php") ?>
+
+    <script type="text/javascript">
+
+      const drugTemplates = <?php echo $drug_template_svc->getAllAsJson(); ?>;
+
+      const drugMap = {};
+      drugTemplates.forEach(d => {
+        const key = `${d.name} ${d.manufacturer}`;
+        drugMap[key] = d;
+      });
+
+      function onDrugSearchChange() {
+        const searchString = document.getElementById('drug-search-input').value;
+        let matchedDrugRowsHtmls = [];
+        Object.keys(drugMap).forEach(key => {
+            if (key.search(searchString) !== -1) {
+              matchedDrugRowsHtmls = [...matchedDrugRowsHtmls, `<tr><td>${drugMap[key].name}</td><td>${drugMap[key].manufacturer}</td><td>${drugMap[key].active_ingredient}</td><td>${drugMap[key].package}</td><td><a class="btn btn-warning" href="${drugMap[key].leaflet}" role="button">See leaflet</a></td><td><button type="button" class="btn btn-success" onclick="onSelectClick(${drugMap[key].drug_template_id})">Select</button></td></tr>`]
+            }
+        });
+
+        document.getElementById('selected-product-rows-outlet').innerHTML = searchString === '' ? '<tr><td>Type something...</td></tr>' : matchedDrugRowsHtmls.join('');
+      }
+
+      function onSelectClick(drugTemplateId) {
+        document.getElementById('drug-template-id-input').value = drugTemplateId;
+        console.log(document.getElementById('drug-template-id-input').value);
+      }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

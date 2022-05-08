@@ -47,7 +47,6 @@
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.name', 'Name'); ?></th>
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.price', 'Price'); ?></th>
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.expiry.date', 'Expiry date'); ?></th>
-                    <th><?php echo $locale->getProperty('dashboard.drugs.table.header.measurement.unit', 'Measurement unit'); ?></th>
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.initial.quantity', 'Initial quantity'); ?></th>
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.taking.that', 'I\'m taking that drug'); ?></th>
                 </tr>
@@ -56,23 +55,27 @@
                         <td><?php echo $d->getName(); ?></td>
                         <td><?php echo $d->getPrice() ?></td>
                         <td><?php echo $d->getExpiryDate() ?></td>
-                        <td><?php echo $d->getQuantityType() ?></td>
                         <td><?php echo $d->getInitialQuantity() ?></td>
                         <td>
                             <form action="./add_dosage.php" method="post">
-                                <input 
-                                    id="<?php echo printf('id-input-%d', $d->getId()); ?>" 
-                                    type="hidden" 
-                                    name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.id', 'drug-id'); ?>" 
-                                    value="<?php echo $d->getId(); ?>"
-                                >
-                                <input 
-                                    id="<?php echo printf('quantity-input-%d', $d->getId()); ?>" 
-                                    name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.quantity', 'drug-quantity'); ?>"
-                                    type="number" 
-                                    step="0.01" 
-                                    placeholder="<?php echo $d->getQuantityType() ?>"
-                                >
+                                <div class="form-group">
+                                    <input 
+                                        id="<?php echo printf('id-input-%d', $d->getId()); ?>" 
+                                        type="hidden" 
+                                        name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.id', 'drug-id'); ?>" 
+                                        value="<?php echo $d->getId(); ?>"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <input 
+                                        id="<?php echo printf('quantity-input-%d', $d->getId()); ?>" 
+                                        class="form-control"
+                                        name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.quantity', 'drug-quantity'); ?>"
+                                        type="number" 
+                                        step="0.01" 
+                                        placeholder=""
+                                    >
+                                </div>
                                 <button 
                                     type="submit" 
                                     class="btn btn-primary"

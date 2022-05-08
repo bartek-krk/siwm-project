@@ -131,9 +131,13 @@
                 $hhId
             );
 
-            $this->db->executeQuery($sql);
+            $registerResponse = $this->db->executeQuery($sql);
 
-            return new RegisterUserResponse(true, UserRegistrationErrorCode::SUCCESS);
+            if ($registerResponse) {
+                return new RegisterUserResponse(true, UserRegistrationErrorCode::SUCCESS);
+            } else {
+                return new RegisterUserResponse(false, UserRegistrationErrorCode::INTERNAL_SERVER_ERROR);
+            }
         }
 
     }

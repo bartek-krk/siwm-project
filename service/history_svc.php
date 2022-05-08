@@ -9,7 +9,7 @@
 
             public function getDrugHistory($household_id){
                 
-                $template = 'SELECT * FROM DOSAGE d JOIN D_USER u ON u.user_id = d.user_id JOIN DRUG drug ON drug.drug_id = d.drug_id WHERE d.dosage_date > DATE_SUB(NOW(), INTERVAL 48 HOUR) AND u.household_id ="%s" ORDER BY d.dosage_date DESC';
+                $template = 'SELECT * FROM DOSAGE d JOIN D_USER u ON u.user_id = d.user_id JOIN DRUG drug ON drug.drug_id = d.drug_id JOIN DRUG_TEMPLATE dt ON dt.drug_template_id=drug.drug_template_id WHERE d.dosage_date > DATE_SUB(NOW(), INTERVAL 48 HOUR) AND u.household_id ="%s" ORDER BY d.dosage_date DESC';
                 $sql = sprintf($template,$household_id);
 
                     $res = $this->db->executeQuery($sql);
