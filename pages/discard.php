@@ -15,7 +15,6 @@
     $db = new DbManager($configuration);
     $session = new SessionManager($configuration);
     $drug_svc = new DrugService($db);
-    $dosage_svc = new DosageService($db, $drug_svc);
 
     if (!$session->isUserLoggedIn()) {
         header('Location: ./../index.php');
@@ -23,23 +22,15 @@
 
     if (isPost()) {
         $drugId = $_POST[$configuration->getProperty('dashboard.takingthatdrug.drug.id', 'drug-id')];
-        $drugQuantity = $_POST[$configuration->getProperty('dashboard.takingthatdrug.drug.quantity', 'drug-quantity')];
-
-        $remainingQuantity = $dosage_svc->getRemainingQuantity($drugId);
-        if ($remainingQuantity < $drugQuantity) {
-            echo('422 Unprocessable Entity - dosage exceeds remaining quantity');
-            http_response_code(422);
-            exit;
-        }
 
         $drug = $drug_svc->getById($drugId);
 
         if ($drug->getHouseholdId() == $session->getCurrentUser()->getHouseholdId()) {
-            $isAddSuccess = $dosage_svc->add($session->getCurrentUser()->getId(), $drugId, $drugQuantity)->isSuccess();
-            if ($isAddSuccess) {
+            $isDiscardSuccess = $drug_svc->discard($drugId)->isSuccess();
+            if ($isDiscardSuccess) {
                 header('Location: ./dashboard.php');
             } else {
-                echo 'Adding dosage failed';
+                echo 'Discarding dosage failed';
             }
         } else {
             echo('403 FORBIDDEN - drug does not belong to the user');

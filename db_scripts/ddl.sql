@@ -33,6 +33,7 @@ CREATE TABLE DRUG (
   initial_quantity DECIMAL(10, 2) NOT NULL,
   expiry_dt DATETIME NOT NULL,
   household_id INT NOT NULL,
+  is_discarded BOOLEAN NOT NULL DEFAULT FALSE,
   FOREIGN KEY (drug_template_id) REFERENCES DRUG_TEMPLATE(drug_template_id),
   FOREIGN KEY (household_id) REFERENCES HOUSEHOLD(household_id)
 );

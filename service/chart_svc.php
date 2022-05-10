@@ -12,7 +12,7 @@ class ChartService{
 
         $arrayIdAndQuantity = [];
         foreach($this->drugs as $d){
-            $arrayIdAndQuantity[$d->getId()] = $d->getInitialQuantity();
+            $arrayIdAndQuantity[$d->getId()] = (float) $d->getInitialQuantity();
         }
 
         $arrayIdAndName = [];

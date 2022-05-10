@@ -20,7 +20,8 @@
     $drugs = $drugSvc->getByHouseholdId($session->getCurrentUser()->getHouseholdId());
     $historyObjects = $historySvc->getDrugHistory($session->getCurrentUser()->getHouseholdId());
     $fullHistoryObjects = $historySvc->getFullDrugHistory($session->getCurrentUser()->getHouseholdId());
-    $chartSvc = new ChartService($fullHistoryObjects,$drugs);
+    $fullHistoryObjectsNoDiscarded = $historySvc->getFullDrugHistorySkipDiscarded($session->getCurrentUser()->getHouseholdId());
+    $chartSvc = new ChartService($fullHistoryObjectsNoDiscarded,$drugs);
     $dataForChart = $chartSvc->getCurrentDrugsQuantity();
 ?>
 
@@ -84,6 +85,7 @@ chart.render();
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.expiry.date', 'Expiry date'); ?></th>
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.initial.quantity', 'Initial quantity'); ?></th>
                     <th><?php echo $locale->getProperty('dashboard.drugs.table.header.taking.that', 'I\'m taking that drug'); ?></th>
+                    <th><?php echo $locale->getProperty('dashboard.drugs.table.header.discard', 'Discard'); ?></th>
                 </tr>
                 <?php foreach($drugs as $d) { ?>
                     <?php if(strtotime($d->getExpiryDate()) > strtotime('7 day')) {
@@ -123,6 +125,24 @@ chart.render();
                                     class="btn btn-primary"
                                 >
                                     <?php echo $locale->getProperty('dashboard.drugs.table.header.taking.that', 'I\'m taking that drug'); ?>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="./discard.php" method="post">
+                                <div class="form-group">
+                                    <input 
+                                        id="<?php echo printf('id-discard-input-%d', $d->getId()); ?>" 
+                                        type="hidden" 
+                                        name="<?php echo $configuration->getProperty('dashboard.takingthatdrug.drug.id', 'drug-id'); ?>" 
+                                        value="<?php echo $d->getId(); ?>"
+                                    >
+                                </div>
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-danger"
+                                >
+                                    <?php echo $locale->getProperty('dashboard.drugs.table.header.discard', 'Discard'); ?>
                                 </button>
                             </form>
                         </td>

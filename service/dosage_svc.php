@@ -26,9 +26,11 @@
      */
     class DosageService {
         private $db;
+        private $drugSvc;
 
-        public function __construct($db) {
+        public function __construct($db, $drugSvc) {
             $this->db = $db;
+            $this->drugSvc = $drugSvc;
         }
 
         public function add($userId, $drugId, $quantity) {
@@ -41,6 +43,19 @@
             } catch (Exception $e) {
                 return new AddDosageResponse(false);
             }
+        }
+
+        public function getRemainingQuantity($id) {
+            $sumDosagesTemplate = 'SELECT SUM(d.quantity) AS DOSAGE_SUM FROM DOSAGE d WHERE d.drug_id=%d';
+            $sumDosagesSql = sprintf($sumDosagesTemplate, $id);
+
+            $initialQuantity = $this->drugSvc->getById($id)->getInitialQuantity();
+
+            $res = $this->db->executeQuery($sumDosagesSql);
+
+            $dosageSum = $res ? mysqli_fetch_assoc($res)['DOSAGE_SUM'] : 0;
+
+            return $initialQuantity - $dosageSum;
         }
     }
 ?>

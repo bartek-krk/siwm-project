@@ -12,6 +12,18 @@
         }
     }
 
+    class DiscardDrugResponse {
+        private $isSuccess;
+
+        public function __construct($isSuccess) {
+            $this->isSuccess = $isSuccess;
+        }
+
+        public function isSuccess() {
+            return $this->isSuccess;
+        }
+    }
+
     class DrugService {
         private $db;
 
@@ -32,7 +44,7 @@
         }
 
         public function getByHouseholdId($householdId) {
-            $template = 'SELECT * FROM DRUG d JOIN DRUG_TEMPLATE dt ON d.drug_template_id=dt.drug_template_id WHERE d.household_id=%d';
+            $template = 'SELECT * FROM DRUG d JOIN DRUG_TEMPLATE dt ON d.drug_template_id=dt.drug_template_id WHERE d.household_id=%d AND d.is_discarded=FALSE';
             $sql = sprintf($template, $householdId);
             
             $res = $this->db->executeQuery($sql);
@@ -76,6 +88,13 @@
             }
 
             return NULL;
+        }
+
+        public function discard($id) {
+            $template = 'UPDATE DRUG d SET d.is_discarded=TRUE WHERE d.drug_id=%d';
+            $sql = sprintf($template, $id);
+            $res = $this->db->executeQuery($sql);
+            return new DiscardDrugResponse($res ? true : false);
         }
     }
 
