@@ -262,5 +262,25 @@
     "dashboard.drugs.table.header.taking.that": {
         "en": "I'm taking that drug",
         "pl": "Biorę ten lek"
+    },
+    "dashboard.dosage.history": {
+        "en": "Dosage History",
+        "pl": "Historia zażyć"
+    },
+    "dashboard.dosage.date": {
+        "en": "Dosage Date",
+        "pl": "Data zażycia"
+    },
+    "dashboard.dosage.quantity": {
+        "en": "Dosage Quantity",
+        "pl": "Ilość przyjętego leku"
+    },
+    "dashboard.chart.title":{
+        "en": "Current drug quantity in First Aid Kit",
+        "pl": "Aktualna ilość leków w apteczce"
+    },
+    "dashboard.chart.yaxis":{
+        "en": "Drug quantity",
+        "pl": "Ilość leku"
     }
 }

@@ -5,14 +5,21 @@
         private $lastName;
         private $drugName;
         private $dosageDate;
+        private $dosageQuantity;
+        private $drugId;
 
-        public function __construct($firstName, $lastName, $drugName, $dosageDate){
+        public function __construct($drugId, $firstName, $lastName, $drugName, $dosageDate, $dosageQuantity){
+            $this->drugId = $drugId;
             $this->firstName = $firstName;
             $this->lastName = $lastName;
             $this->drugName = $drugName;
             $this->dosageDate = $dosageDate;
+            $this->dosageQuantity = $dosageQuantity;
         }
 
+        public function getDrugId(){
+            return $this->drugId;
+        }
         public function getFirstName(){
             return $this->firstName;
         }
@@ -23,7 +30,10 @@
             return $this->drugName;
         }
         public function getDoseDate(){
-            return $this->doseDate;
+            return $this->dosageDate;
+        }
+        public function getDoseQuantity(){
+            return $this->dosageQuantity;
         }
     }
 
