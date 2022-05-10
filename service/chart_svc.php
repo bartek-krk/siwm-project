@@ -10,10 +10,9 @@ class ChartService{
 
     public function getCurrentDrugsQuantity(){
 
-        $arrayIdAndInitialQuantity = [];
-
+        $arrayIdAndQuantity = [];
         foreach($this->drugs as $d){
-            $arrayIdAndInitialQuantity[$d->getId()] = $d->getInitialQuantity();
+            $arrayIdAndQuantity[$d->getId()] = (float) $d->getInitialQuantity();
         }
 
         $arrayIdAndName = [];
@@ -21,14 +20,15 @@ class ChartService{
             $arrayIdAndName[$d->getId()] = $d->getName();
         }
 
-        $arrayNameAndInitialQuantity = [];
         foreach($this->fullHistoryObjects as $fh){
-            foreach($arrayIdAndInitialQuantity as $drugId => $initialQuantity){
-                if($fh->getDrugId() == $drugId){
-                    $arrayNameAndInitialQuantity[$arrayIdAndName[$drugId]] -= $fh->getDoseQuantity();
-                }
-            }
+            $arrayIdAndQuantity[$fh->getDrugId()] = $arrayIdAndQuantity[$fh->getDrugId()] - $fh->getDoseQuantity();
         }
+
+        $arrayNameAndInitialQuantity = [];
+        foreach($arrayIdAndQuantity as $id => $q){
+            $arrayNameAndInitialQuantity[$arrayIdAndName[$id]] = $q;
+        }
+
         return $arrayNameAndInitialQuantity;
     }
 }

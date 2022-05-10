@@ -35,6 +35,9 @@
                 <?php echo $locale->getProperty('homepage.description', ''); ?>
             </p>
         </div>
+        <div>
+            <a href="https://student.agh.edu.pl/~mpikula/siwm/documentation.pdf">DOCUMENTATION</a>
+        </div>
     </div>
 
     <?php require_once("./assets/components/footer.php") ?>

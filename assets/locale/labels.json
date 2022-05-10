@@ -263,6 +263,14 @@
         "en": "I'm taking that drug",
         "pl": "Biorę ten lek"
     },
+    "dashboard.drugs.table.header.discard": {
+        "en": "Discard",
+        "pl": "Wyrzuć"
+    },
+    "dashboard.drugs.table.header.discard": {
+        "en": "Discard",
+        "pl": "Wyrzuć"
+    },
     "dashboard.dosage.history": {
         "en": "Dosage History",
         "pl": "Historia zażyć"
